@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터 입/출력</title>
+    <style>
+        .area{
+            border:1px solid black;
+            width:300px;
+            height:100px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>자바스크립트에서의 데이터 입/출력</h1>
+
+    <!-- 
+
+        window : 자바스크립트 내장 객체로 브라우저 창이 열릴때마다
+                 하나씩 만들어지는 객체, 브라우저 창안에 존재하는 모든 요소들의 최상위 객체
+                 (즉, 모든 곳에 적용되기 때문에 생략 가능)
+        
+        document : 웹문서마다 하나씩 만들어지는 객체
+                   body 태그에 의해 만들어짐
+                   (HTML 문서에 대한 정보를 가지고 있음)
+
+    -->
+
+    <h2>1. 데이터를 출력하는 기본 구문</h2>
+    <p>
+        1) [window.]alert("알람창에 출력할 문구"); <br>
+        2) document.write("화면에 출력할 문구"); <br>
+        3) [window.]console.log("콘솔창에 출력할 문구"); <br>
+        4) 선택한요소.innerHTML(innerText) = "요소에 출력할 문구"; 
+    </p>
+
+    <h3>1) [window.]alert("출력할 문구");</h3>
+    <script>
+        // 브라우저를 통해 해당 문서가 다 로딩되고 난 직후에
+        // 알람창뜨게 하겠음
+        window.onload = function(){
+            //alert("알람창 출력!!");
+        };
+    </script>
+
+    <br>
+
+    <h3>2) document.write("출력할 문구");</h3>
+
+    <button onclick="documentWrite();">출력</button>
+
+    <script>
+        function documentWrite(){
+            //document.write("화면에 데이터 출력"); // 화면에 데이터 출력
+            //document.write("<b>기존 HTML내용 모두 삭제되고 이 문자열이 화면에 출력</b>");
+            // 화면에 출력할 문자열에 html태그가 있을 경우 html 태그로 진짜 해석됨
+            document.write("<table border='1'><tr><td>1</td><td>2</td></tr></table>")
+        }
+    </script>
+
+    <br><br>
+
+    <h3>3) console.log("출력할 문구");</h3>
+    <button onclick="console.log('콘솔창에 출력하기!!');">출력</button>
+
+    <br><br>
+
+    <h4>4) 선택한요소.innerHTML(innerText) = "출력할 문구";</h4>
+    <div class="area" id="area1">
+        자바스크립트에서 어떤 요소(element)안의 값을 가지고온다거나 <br>
+        변경하고자 할 때 <b>innerHTML, innerText</b>라는 속성에 접근 가능
+    </div>
+
+    <button onclick="tagValue();">확인</button>
+
+    <script>
+        function tagValue(){
+
+            // 특정 문구를 특정 요소에 출력하고자 한다면
+            // 먼저 해당 요소를 가지고 와야됨!!
+
+            // 아이디를 이용해서 요소 선택 가능
+            var divEl = document.getElementById("area1"); // div요소객체
+
+            console.log(divEl); 
+            console.dir(divEl); // console.dir은 디렉토리 구조 보고자 할 때 (속성들에 대한 정보)
+
+            // 선택된 요소내의 정보들을 알아내고자 한다면 속성들에 직접 접근 가능 (.을 통해서)
+            console.log(divEl.id);        /* id : 해당 요소의 아이디값 */
+            console.log(divEl.className); /* className : 해당 요소의 클래스값 */
+
+            // 선택된 요소안에 기술되어있는 내용에 접근하고자 한다면
+            console.log(divEl.innerHTML); /* innerHTML : 내용물에 html 태그까지 다 가져오는 */
+            console.log(divEl.innerText); /* innerText : 내용물에 텍스트 문구만 가져옴(html태그x) */
+
+            // 속성에 직접 접근해서 값을 가지고 오는것도 가능하지만
+            // 값을 변경하는 것도 가능!! (대입을 통해서)
+
+            //divEl.innerHTML = "<b>innerHTML로 속성값 변경함ㅎㅎ</b>";
+            divEl.innerText = "<b>innerText로 속성값 변경함ㅎㅎ</b>";
+
+            // innerHTML로 변경하면 문구에 html태그가 있을 경우 태그로써 해석됨
+            // innerText로 변경하면 문구에 html태그가 있어도 문자열로 인식시켜짐(즉, 태그로써 해석 안됨)
+
+        }
+    </script>
+    <br><br>
+    <hr>
+
+    <h2>2. 데이터 입력받는 기본 구문 (변수에 기록 가능)</h2>
+    <p>
+        1) 변수 = [window.]confirm("질문내용"); <br>
+        2) 변수 = [window.]prompt("질문내용"); <br>
+        3) 변수 = 선택한요소.속성(id, className, innerHTML, innerText, ....); <br>
+        4) 변수 = 선택한input요소.value;
+    </p>
+
+    <h3>1) [window.]confirm("질문내용");</h3>
+    <p>
+        confirm함수 호출시 "질문내용"과 "확인/취소" 버튼이 존재하는 알람창 발생 <br>
+        확인버튼 클릭시 true, 취소버튼 클릭시 false를 반환한다.
+    </p>
+
+    <button onclick="testConfirm();">클릭</button>
+    <div class="area" id="area2">테스트</div>
+
+    <script>
+        function testConfirm(){
+            var result = confirm("졸리면 확인, 아니면 취소를 누르세요");
+
+            //console.log(result);
+
+            var divEl = document.getElementById("area2");
+
+            if(result){
+                divEl.innerHTML = "<h2>졸려요ㅠㅠㅠ</h2>";
+            }else{
+                divEl.innerHTML = "<h2>안졸립니다!!</h2>";
+            }
+        }
+    </script>
+
+    <br>
+
+    <h3>2) [window.]prompt("질문내용");</h3>
+    <p>
+        prompt 함수 호출시 "질문내용"과 입력할 수있는 "텍스트상자"와 "확인/취소" 버튼이 보여지는 알람창 발생 <br>
+        확인버튼 클릭시 텍스트상자에 입력되어있는 값이 반환, 취소버튼 클릭시 null을 반환
+    </p>
+
+    <button onclick="testPrompt();">이름입력</button>
+    <div class="area" id="area3"></div>
+
+    <script>
+        function testPrompt(){
+            var name = prompt("당신의 이름은 무엇입니까?");
+
+            //console.log(name);
+
+            var divEl = document.getElementById("area3");
+
+            divEl.innerHTML = "<b>앗 당신이 바로 " + name + "이군요..반갑습니다.</b>";
+        }
+    </script>
+
+    <br>
+
+    <button onclick="testPrompt2();">숫자입력</button>
+    <!-- <div class="area" id="area4"></div>  -->
+
+    <ul id="ul1">
+
+    </ul>
+
+    <script>
+        function testPrompt2(){
+            var num = prompt("숫자를 입력하세요");
+
+            var str = "";
+
+            // 자바
+            /*
+            for(int i=0; i<num; i++){
+
+            }
+            */
+            for(var i=0; i<num; i++){
+                //str += "<h5>안녕하세요" + i + "</h5>";
+                str += "<li>안녕하세요" + i + "</li>";
+            }
+
+            //var divEl = document.getElementById("area4");
+            //divEl.innerHTML = str;
+
+            var ulEl = document.getElementById("ul1");
+            ulEl.innerHTML = str;
+
+        }
+    </script>
+
+    <br>
+
+    <h3>4) 선택한input요소.value</h3>
+    아이디 : <input type="text" id="userId"> <br>
+    비밀번호 : <input type="password" id="userPwd"> <br>
+    <button onclick="testInput();">클릭</button>
+
+    <script>
+        function testInput(){
+            var input1 = document.getElementById("userId"); // input요소자체
+            var input2 = document.getElementById("userPwd"); 
+            document.getElement
+            //console.log(input1);
+            //console.log(input2);
+
+            console.log(input1.value);
+            console.log(input2.value);
+
+            input1.value = "ㅋㅋㅋㅋ";
+        }
+    </script>
+
+
+
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

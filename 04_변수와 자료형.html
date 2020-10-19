@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="resources/js/04.js"></script>
+</head>
+<body>
+
+    <h1>변수와 자료형</h1>
+
+    <h3>* 변수 선언 </h3>
+    <pre>
+    &lt;script&gt;
+
+        var 변수명;         // 전역변수 (global)
+
+        변수명;             // 전역변수 (global)
+        
+        function 함수명(){
+            var 변수명;     // 지역변수 (local)
+
+            변수명;         // 전역변수 (global)
+        }
+
+    &lt;/script&gt;
+    </pre>
+
+    <hr>
+
+    <h3>* 자료형</h3>
+
+    <p>
+        변수 선언시 자료형을 별도로 지정하지 않음 (자료형의 개념이 없는건 아님!!) <br>
+        --> 변수에 대입되는 값(리터럴)에 따라서 알아서 자료형이 자동으로 결정됨 
+    </p>
+
+    <h4>자바스크립트의 자료형</h4>
+    <ul>
+        <li>string(문자열)</li>
+        <li>number(숫자)</li>
+        <li>boolean(논리값)</li>
+        <li>object(객체)</li>
+        <li>function(함수)</li>
+        <li>undefined(초기화가 안된 변수)</li>
+    </ul>
+
+    <button onclick="typeTest();">자료형테스트</button>
+
+    <div id="area1" style="border:1px solid black;"></div>
+
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    
+</body>
+</html>

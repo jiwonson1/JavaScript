@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            background:yellow;
+            width:400px;
+            margin-top:30px;
+            border-radius:20px;
+            padding:20px;
+        }
+        label{
+            color:gray;
+            padding-left:10px;
+            font-size:10px;
+        }
+        input[type=submit]{
+            border:none;
+            background:red;
+            color:white;
+            padding:10px;
+            border-radius:10px;
+            box-shadow:5px 5px 5px pink;
+        }
+        input[type=reset]{
+            border:none;
+            margin-left:20px;
+            padding:10px;
+
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>< 정규표현식을 활용한 회원가입 ></h1>
+    
+    
+    
+    <form action="insert.me">
+
+    * 아이디 : 
+    <input type="text" name="userId" id="userId" required><br>
+    <label>첫글자는 반드시 영문자로, 그리고 영문자,숫자 포함하여 총 4~12자로 입력하시오.</label><br><br>
+    * 비밀번호 : 
+    <input type="password" name="userPwd1" id="userPwd1" required><br>
+    <label>영문자, 숫자, 특수문자 포함하여 총 8자~15자로 입력하시오.</label><br><br>
+    * 비밀번호 확인 :
+     <input type="password" name="userPwd2" id="userPwd2"required><br>
+    <label>위의 비밀번호와 일치하게 입력하시오.</label><br><br>
+    * 이름 : 
+    <input type="text" name="userName" id="userName"required><br>
+    <label>한글로만 이루어져야되며 2글자 이상으로 입력하시오.</label><br><br>
+    * 이메일 : 
+    <input type="email" id="userEmail"><br>
+    <label>이메일 형식에 맞춰서 입력하시오.</label><br><br>
+    * 취미 : 
+    <input type="text" name="hobby" id="hobby" placeholder="축구, 농구, 야구, 독서 등" list="hobbyList" required><br><br>
+    <datalist id="hobbyList">
+        <option value="soccer">축구</option>
+        <option value="basketball">농구</option>
+        <option value="baseball">야구</option>
+        <option value="reading">독서</option>
+    </datalist>
+    
+    
+    * 거주지 : 
+    <select name= "address" id="address">
+        <option selected value="seoul">서울</option>
+        <option value="incheon">인천</option>
+        <option value="busan">부산</option> 
+       
+    </select>
+
+        <br><br>
+    <input type="submit" value="회원가입" onclick="return validate();">
+    <input type="reset" value="취소">
+
+</form>
+
+<script>
+    function validate() {
+        // 유효성검사 : 아이디, 비밀번호,비밀번호일치, 이름
+
+        // input요소 객체들 가져다놓기(작성된 값아님!!)
+        var userId = document.getElementById("userId");
+        var userPwd1 = document.getElementById("userPwd1");
+        var userPwd2 = document.getElementById("userPwd2");
+        var userName = document.getElementById("userName");
+
+        // 1) 아이디 검사
+        //영문 소문자와 숫자로만 총 4~12글자로만 이루어져야되고
+        //단, 첫글자는 반드시 영문 소문자 여야됨
+
+        var regExp = /^[a-z][a-z\d]{3,11}$/;
+
+        if(!regExp.test(userId.value)){
+            alert("유효한 아이디를 입력하세요!");
+
+            userId.value = "";
+            userId.focus();
+            return false;
+        }
+
+
+        // 2) 비밀번호 검사
+        // 영문자(대소문자), 숫자, 특수문자(!@#$%^&*)로만 총8~15자 사이로 입력하세요
+        var regExp = /^[a-z\d!@#$%^&]{8,15}$/i;
+
+        if(!regExp.test(userPwd1.value)){
+            alert("유효한 비밀번호를 입력하세요!");
+
+            userPwd1.value="";
+            userPwd1.focus();
+            return false;
+        }
+
+        if(userPwd2.value!=userPwd1.value){
+            alert("동일한 비밀번호를 입력하세요!!");
+
+            userPwd2.select();
+
+            return false;
+
+        }
+
+        // 4) 이름검사
+        // 한글로만 2글자 이상
+        regExp = /^[가-힣]{2,}$/;
+        if(!regExp.test(userName.value)){
+            alert("유효한 이름을 입력하세요!");
+
+            userName.value="";
+            userName.focus();
+
+            
+            return false;
+        }
+
+
+        
+    }
+</script>
+
+
+</body>
+</html>
